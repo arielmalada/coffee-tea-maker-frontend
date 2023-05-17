@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createContext } from "react";
-import { getAllProducts, IProduct } from "../services/product";
+import { getAllProducts, IProduct } from "../../services/product";
 export const ProductsContext = createContext<IProduct[] | undefined>(undefined);
 
 interface Props {

@@ -2,7 +2,7 @@
 
 
 import React from "react";
-import { ProductsProvider } from "../contexts/ProductsProvider.context";
+import { ProductsProvider } from "../contexts/product/ProductsProvider.context";
 import OrderForm from "../components/OrderForm.component";
 
 //#region MAIN COMPONENT
