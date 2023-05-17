@@ -1,12 +1,11 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import OrderForm from './components/OrderForm.component';
+import OrderPage from './views/OrderPage.view';
 
 function App() {
   return (
     <div className="App">
-      <OrderForm />
+      <OrderPage />
     </div>
   );
 }
