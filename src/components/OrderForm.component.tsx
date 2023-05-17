@@ -1,8 +1,10 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { IOrder } from "../services/order";
 
+//#region TYPES AND SCHEMA
 type OrderData = {
   name: string;
   type: "coffee" | "tea";
@@ -10,6 +12,10 @@ type OrderData = {
   price: number;
   roastingLevel?: number;
 };
+
+type Props = {
+  onSubmitOrder(order: IOrder): void;
+}
 
 const schema = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -29,25 +35,27 @@ const schema = yup.object().shape({
     .required("Price is required"),
   roastingLevel: yup.number().typeError("Roasting level must be a number"),
 });
+//#endregion
 
 //#region MAIN COMPONENT
-const OrderForm: React.FC = () => {
+const OrderForm: React.FC<Props> = ({onSubmitOrder}) => {
   const {
     register,
     handleSubmit,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm<OrderData>({
     resolver: yupResolver(schema),
   });
-  const onSubmitHandler = (data: OrderData) => {
-    const dataWithPrice = {
-      ...data,
-      price: 0.2 * data.packageWeight,
-    };
-    console.log(dataWithPrice);
-  };
+  useEffect(()=> {
+    const weight = watch("packageWeight")
+    if(weight) {
+      setValue("price", weight*0.2)
+    }
+  },[setValue, watch])
   return (
-    <form onSubmit={handleSubmit(onSubmitHandler)} className="max-w-3xl flex flex-col">
+    <form onSubmit={handleSubmit(onSubmitOrder)} className="max-w-3xl flex flex-col">
       <label>
         Name:
         <input {...register("name")} />

@@ -15,7 +15,7 @@ export const get = async (endpoint: string) => {
 
 export const post = async (endpoint: string, data: any) => {
   try {
-    const response: AxiosResponse = await axios.post(`${BASE_URL}/${endpoint}`, data);
+    const response: AxiosResponse = await axios.post(`${BASE_URL}/api/${endpoint}`, data);
     return response.data;
   } catch (error) {
     console.error(`Error posting to ${endpoint}: ${error}`);
