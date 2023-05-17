@@ -27,18 +27,18 @@ export const addNewOrder = async (order: IOrder): Promise<IOrderResponse> => {
   }
 };
 
-export const getAllOrders = async (): Promise<IOrder[] | undefined> => {
+export const getAllOrders = async (): Promise<IOrderResponse[] | undefined> => {
   try {
-    const res: AxiosResponse<IOrder[]> = await get(`order`);
-    return res.data;
+    const response: AxiosResponse<IOrderResponse[]> = await get(`order`);
+    return response.data;
   } catch (error) {
     throw new Error(`Error fetching orders: ${error}`);
   }
 };
 
-export const searchOrders = async (query: ISearchOrder): Promise<IOrder[] | undefined> => {
+export const searchOrders = async (query: ISearchOrder): Promise<IOrderResponse[] | undefined> => {
   try {
-    const response: AxiosResponse<IOrder[]> = await post("order/search", query)
+    const response: AxiosResponse<IOrderResponse[]> = await post("order/search", query)
     return response.data;
   } catch (error) {
     throw new Error(`Failed to find the order: ${error}`);

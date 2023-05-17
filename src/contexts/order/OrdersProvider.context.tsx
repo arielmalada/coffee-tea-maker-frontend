@@ -1,21 +1,22 @@
 import React, { useState, useEffect, createContext } from "react";
-import { getAllOrders, IOrder } from "../../services/order";
-export const ProductsContext = createContext<IOrder[] | undefined>(undefined);
+import { getAllOrders, IOrderResponse } from "../../services/order";
+export const OrdersContext = createContext<IOrderResponse[] | undefined>(undefined);
 
 interface Props {
   children: React.ReactNode;
 }
 
 export const OrdersProvider: React.FC<Props> = (props) => {
-  const [ordersData, setProductsData] = useState<IOrder[]>([]);
+  const [OrdersData, setOrdersData] = useState<IOrderResponse[]>([]);
   useEffect(() => {
     getAllOrders().then((res) => {
-      if (res) setProductsData(res);
+      console.log(res)
+      if (res) setOrdersData(res);
     });
   }, []);
   return (
-    <ProductsContext.Provider value={ordersData}>
+    <OrdersContext.Provider value={OrdersData}>
       {props.children}
-    </ProductsContext.Provider>
+    </OrdersContext.Provider>
   );
 };

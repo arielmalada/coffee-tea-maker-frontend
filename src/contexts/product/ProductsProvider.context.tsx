@@ -7,14 +7,14 @@ interface Props {
 }
 
 export const ProductsProvider: React.FC<Props> = (props) => {
-  const [productsData, setProductsData] = useState<IProduct[]>([]);
+  const [ProductsData, setProductsData] = useState<IProduct[]>([]);
   useEffect(() => {
     getAllProducts().then((res) => {
       if (res) setProductsData(res);
     });
   }, []);
   return (
-    <ProductsContext.Provider value={productsData}>
+    <ProductsContext.Provider value={ProductsData}>
       {props.children}
     </ProductsContext.Provider>
   );
