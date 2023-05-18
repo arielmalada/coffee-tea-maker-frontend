@@ -12,7 +12,7 @@ const ListOrders: React.FC = () => {
     return (
       <div className="flex flex-col gap-4 p-4">
         {data?.map((order) => (
-          <OrderItem data={order} />
+          <OrderItem key={order.id} data={order} />
         ))}
       </div>
     );
