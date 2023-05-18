@@ -8,7 +8,6 @@ import OrderItem from "./OrderItem.component";
 const ListOrders: React.FC = () => {
   const orders = useContext(OrdersContext);
   const {data} = orders;
-  console.log(orders);
   if (orders)
     return (
       <div className="flex flex-col gap-4 p-4">

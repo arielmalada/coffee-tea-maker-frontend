@@ -32,7 +32,6 @@ export const OrdersProvider: React.FC<Props> = (props) => {
 
   useEffect(() => {
     getAllOrders().then((res) => {
-      console.log(res);
       if (res) setOrdersData(res);
     });
   }, []);

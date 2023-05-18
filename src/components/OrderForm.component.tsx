@@ -61,7 +61,8 @@ const OrderForm: React.FC<Props> = ({ onSubmitOrder }) => {
     handleSubmit,
     watch,
     setValue,
-    formState: { errors },
+    reset,
+    formState: { errors, isSubmitSuccessful },
   } = useForm<OrderData>({
     resolver: yupResolver(schema),
   });
@@ -74,6 +75,7 @@ const OrderForm: React.FC<Props> = ({ onSubmitOrder }) => {
   ) => {
     setType(newType);
     setValue("type", newType);
+    if (newType === "tea") setValue("roastingLevel", undefined);
   };
 
   useEffect(() => {
@@ -97,6 +99,12 @@ const OrderForm: React.FC<Props> = ({ onSubmitOrder }) => {
     if (price) setValue("price", price);
   }, [price, setValue]);
 
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+  }, [isSubmitSuccessful, reset]);
+
   return (
     <form
       onSubmit={handleSubmit(onSubmitOrder)}
@@ -109,15 +117,11 @@ const OrderForm: React.FC<Props> = ({ onSubmitOrder }) => {
         aria-label="order type"
         className="mx-auto"
       >
-        <ToggleButton
-          value="coffee"
-          aria-label="left aligned"
-          {...register("type")}
-        >
+        <ToggleButton value="coffee" aria-label="coffee" {...register("type")}>
           <CoffeeIcon />
           Coffee
         </ToggleButton>
-        <ToggleButton value="tea" aria-label="centered" {...register("type")}>
+        <ToggleButton value="tea" aria-label="tea" {...register("type")}>
           <LocalDrinkIcon />
           Tea
         </ToggleButton>
@@ -128,12 +132,13 @@ const OrderForm: React.FC<Props> = ({ onSubmitOrder }) => {
         {errors.name && <FormHelperText>{errors.name.message}</FormHelperText>}
       </FormControl>
       <FormControl error={!!errors.packageWeight}>
-        <InputLabel id="roastingLevel-label">Weight</InputLabel>
+        <InputLabel id="weight-label">Weight</InputLabel>
         <Select
           {...register("packageWeight")}
-          labelId="packageWeight-label"
+          labelId="weight-label"
           fullWidth
-          aria-labelledby="packageWeight-label"
+          aria-labelledby="weight-label"
+          defaultValue={""}
         >
           {Array.from({ length: 4 }, (_, i) => (i + 2) * 5).map((value) => (
             <MenuItem key={value} value={value}>{`${value} gram`}</MenuItem>
@@ -145,12 +150,13 @@ const OrderForm: React.FC<Props> = ({ onSubmitOrder }) => {
       </FormControl>
       {type === "coffee" && (
         <FormControl error={!!errors.roastingLevel}>
-          <InputLabel id="roastingLevel-label">Roast Level</InputLabel>
+          <InputLabel id="roast-level-label">Roast Level</InputLabel>
           <Select
             {...register("roastingLevel")}
-            labelId="roastingLevel-label"
+            labelId="roast-level-label"
             fullWidth
             aria-labelledby="roast-level-label"
+            defaultValue={""}
           >
             {Array.from({ length: 5 }, (_, i) => i + 1).map((value) => (
               <MenuItem key={value} value={value}>{`Level ${value}`}</MenuItem>
