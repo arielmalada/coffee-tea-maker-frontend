@@ -1,6 +1,26 @@
 import React, { useState, useEffect, createContext } from "react";
-import { getAllOrders, IOrderResponse } from "../../services/order";
-export const OrdersContext = createContext<IOrderResponse[] | undefined>(undefined);
+import {
+  getAllOrders,
+  IOrderResponse,
+  searchOrders,
+} from "../../services/order";
+
+type OrdersContextType = {
+  data: IOrderResponse[] | undefined;
+  query: string;
+  searchHandler(
+    event?: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ): void;
+};
+
+const defaultOrdersContext: OrdersContextType = {
+  data: undefined,
+  query: "",
+  searchHandler: () => {},
+};
+
+export const OrdersContext =
+  createContext<OrdersContextType>(defaultOrdersContext);
 
 interface Props {
   children: React.ReactNode;
@@ -8,14 +28,35 @@ interface Props {
 
 export const OrdersProvider: React.FC<Props> = (props) => {
   const [OrdersData, setOrdersData] = useState<IOrderResponse[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+
   useEffect(() => {
     getAllOrders().then((res) => {
-      console.log(res)
+      console.log(res);
       if (res) setOrdersData(res);
     });
   }, []);
+
+  const handleSearch = async (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const query = event.target.value;
+    setSearchQuery(query);
+    if (query.trim() === "") {
+      const res = await getAllOrders();
+      if (res) setOrdersData(res);
+    } else {
+      const res = await searchOrders({ query });
+      if (res) setOrdersData(res);
+    }
+  };
+  const ordersContextProviderValue = {
+    data: OrdersData,
+    query: searchQuery,
+    searchHandler: handleSearch,
+  };
   return (
-    <OrdersContext.Provider value={OrdersData}>
+    <OrdersContext.Provider value={ordersContextProviderValue}>
       {props.children}
     </OrdersContext.Provider>
   );

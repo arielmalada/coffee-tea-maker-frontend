@@ -1,24 +1,21 @@
 //#region IMPORTS
 import React, { useContext } from "react";
 import { OrdersContext } from "../contexts/order/OrdersProvider.context";
-import OrderItem from "./OrderItem.component";
+import { TextField } from "@mui/material";
 //#endregion
 
 //#region MAIN COMPONENTS
-const ListOrders: React.FC = () => {
+const SearchOrders: React.FC = () => {
   const orders = useContext(OrdersContext);
-  const {data} = orders;
-  console.log(orders);
+  const {query, searchHandler} = orders;
   if (orders)
     return (
-      <div className="flex flex-col gap-4 p-4">
-        {data?.map((order) => (
-          <OrderItem data={order} />
-        ))}
+      <div className="p-4">
+        <TextField fullWidth label="Search Order Name" value={query} onChange={searchHandler}/>
       </div>
     );
     return null;
 };
 //#endregion
 
-export default ListOrders;
+export default SearchOrders;
