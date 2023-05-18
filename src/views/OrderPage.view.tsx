@@ -11,9 +11,12 @@ const OrderPage: React.FC = () => {
   const [open, setOpen] = useState(false);
   const handleSubmitOrder = (order: IOrder) => {
     addNewOrder(order).then((res) => {
+      // open the snackbar after the order successfully recorded
       setOpen(true);
     });
   };
+
+  // close handler for snackbar
   const handleClose = (
     event: React.SyntheticEvent | Event,
     reason?: string

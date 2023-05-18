@@ -1,9 +1,9 @@
 //#region IMPORTS
-
 import React from "react";
 import { OrdersProvider } from "../contexts/order/OrdersProvider.context";
 import ListOrders from "../components/ListOrders.component";
 import SearchOrders from "../components/SearchOrders.component";
+//#endregion
 
 //#region MAIN COMPONENT
 const HistoryPage: React.FC = () => {
