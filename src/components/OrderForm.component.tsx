@@ -55,6 +55,8 @@ const schema = yup.object().shape({
 
 //#region MAIN COMPONENT
 const OrderForm: React.FC<Props> = ({ onSubmitOrder }) => {
+  
+  //#region INIT
   const products = useContext(ProductsContext);
   const {
     register,
@@ -68,7 +70,9 @@ const OrderForm: React.FC<Props> = ({ onSubmitOrder }) => {
   });
   const [price, setPrice] = useState(0);
   const [type, setType] = useState<"coffee" | "tea">("coffee");
+  //#endregion
 
+  //#region HANDLER
   const handleType = (
     event: React.MouseEvent<HTMLElement>,
     newType: "coffee" | "tea"
@@ -77,7 +81,10 @@ const OrderForm: React.FC<Props> = ({ onSubmitOrder }) => {
     setValue("type", newType);
     if (newType === "tea") setValue("roastingLevel", undefined);
   };
+  //#endregion
 
+  //#region HOOKS
+  // watch price
   useEffect(() => {
     const checkPrice = (weight?: number, pricePerGram?: number) => {
       if (weight && pricePerGram) {
@@ -104,6 +111,7 @@ const OrderForm: React.FC<Props> = ({ onSubmitOrder }) => {
       reset();
     }
   }, [isSubmitSuccessful, reset]);
+  //#endregion
 
   return (
     <form
