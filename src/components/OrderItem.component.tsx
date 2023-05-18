@@ -21,11 +21,12 @@ const OrderItem: React.FC<Props> = ({ data }) => {
           <span className="font-bold">Weight:</span>
           <span>{data.packageWeight} gram</span>
         </Typography>
-        <Typography variant="body1" gutterBottom className="space-x-1">
-          <span className="font-bold">Roast Level:</span>
-          <span>{data.roastingLevel}</span>
-          <span>gram</span>
-        </Typography>
+        {data.roastingLevel && (
+          <Typography variant="body1" gutterBottom className="space-x-1">
+            <span className="font-bold">Roast Level:</span>
+            <span>{data.roastingLevel}</span>
+          </Typography>
+        )}
       </Grid>
       <Grid item xs={12} sm={6}>
         <Typography variant="h6" gutterBottom align="right">
