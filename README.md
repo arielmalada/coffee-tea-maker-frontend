@@ -1,46 +1,36 @@
-# Getting Started with Create React App
+# Coffee / Tea Maker Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a React application where you can store information about your favorite coffee or tea qualities and the price. It allows you to select either coffee or tea, and then enter details such as name, package weight in grams, and roasting level on a scale of 1 to 5. 
 
-## Available Scripts
+## Requirements
+Before starting the application, ensure that you have the following software installed:
 
-In the project directory, you can run:
+Node.js (version 12 or higher)
+npm (Node Package Manager) or yarn
 
-### `npm start`
+## Getting Started
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+To get started with this application: 
+ - clone the frontend repository `git clone https://github.com/arielmalada/coffee-tea-maker-frontend.git`
+ - run `cd coffee-tea-maker-frontend && npm install` to install the necessary dependencies.
+ - run the backend https://github.com/arielmalada/coffee-tea-maker-backend
+ - Then, run `npm start` to start the development server.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Usage
 
-### `npm test`
+Once the development server is running, navigate to `http://localhost:3000/` in your web browser to access the application.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+To add a new coffee or tea,fill out the form with the desired information and click "Submit" button.
 
-### `npm run build`
+To view saved coffees or teas, click the "History" button on the bottom navigation.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+To search for saved items, enter a search query in the search bar and click the "Search" button.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Technologies Used
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+This application was built using:
+- React
+- Typescript
+- MUI
+- Tailwind
+- Axios
