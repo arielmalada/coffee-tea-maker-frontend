@@ -12,7 +12,6 @@ const OrderPage: React.FC = () => {
   const handleSubmitOrder = (order: IOrder) => {
     addNewOrder(order).then((res) => {
       setOpen(true);
-      console.log(res)
     });
   };
   const handleClose = (
