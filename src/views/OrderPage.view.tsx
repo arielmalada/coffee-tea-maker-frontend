@@ -1,42 +1,49 @@
 //#region IMPORTS
-import React, { useState } from "react";
+import React from "react";
 import { ProductsProvider } from "../contexts/product/ProductsProvider.context";
 import OrderForm from "../components/OrderForm.component";
 import { IOrder, addNewOrder } from "../services/order";
-import { Alert, Snackbar, Typography } from "@mui/material";
+import { AppBar, Toolbar, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 //#endregion
 
 //#region MAIN COMPONENT
 const OrderPage: React.FC = () => {
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
   const handleSubmitOrder = (order: IOrder) => {
     addNewOrder(order).then((res) => {
       // open the snackbar after the order successfully recorded
-      setOpen(true);
+      // setOpen(true);
+      navigate("/");
     });
   };
 
   // close handler for snackbar
-  const handleClose = (
-    event: React.SyntheticEvent | Event,
-    reason?: string
-  ) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpen(false);
-  };
+  // const handleClose = (
+  //   event: React.SyntheticEvent | Event,
+  //   reason?: string
+  // ) => {
+  //   if (reason === "clickaway") {
+  //     return;
+  //   }
+  //   setOpen(false);
+  // };
   return (
     <ProductsProvider>
-      <Typography variant="h4" className="!mx-auto w-fit">
-        Coffee / Tea Maker
-      </Typography>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Coffee / Tea Order
+          </Typography>
+        </Toolbar>
+      </AppBar>
       <OrderForm onSubmitOrder={handleSubmitOrder} />
-      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+      {/* <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
           Your Order is On The Way and Recorded
         </Alert>
-      </Snackbar>
+      </Snackbar> */}
     </ProductsProvider>
   );
 };
